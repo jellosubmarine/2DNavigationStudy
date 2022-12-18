@@ -1,0 +1,57 @@
+@startuml components
+class Inputs {
+  float target_forward_vel
+  float target_angular_vel
+}
+
+class State {
+  Vec2 linear_vel
+  float angular_vel
+  void update()
+}
+
+class EnvironmentalForces {
+  Vec2  central_force
+  float central_torque
+}
+
+class DriveForces {
+  float left_track_force //engine torque and braking
+  float right_track_force 
+}
+
+class Outputs {
+  DriveForces drive_forces
+  EnvironmentalForces env_forces
+}
+
+class Controller {
+
+}
+
+class PhysicsController {
+  _physics_process(delta)
+}
+
+class MotorBraking {
+  float braking_coefficient
+  void velocity_to_rps(State state, bool is_left_track)
+}
+
+class Friction {
+  float friction_x
+  float friction_y
+  EnvironmentalForces calculateFriction(State state)
+}
+
+Inputs --> Controller
+Controller *- MotorBraking
+Controller --> DriveForces
+DriveForces --> Outputs
+Friction --> EnvironmentalForces
+EnvironmentalForces --> Outputs
+MotorBraking *-- State
+Friction *-- State
+Outputs --> PhysicsController
+
+@enduml

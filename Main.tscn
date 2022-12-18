@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://ugv.png" type="Texture" id=1]
+[ext_resource path="res://UGV.gd" type="Script" id=2]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 0.38356, 0.481326, 0.667969, 1, 0.165344, 0.315721, 0.671875, 1 )
+
+[sub_resource type="GradientTexture2D" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="PhysicsMaterial" id=4]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 14.5, 14.5 )
+
+[sub_resource type="Curve2D" id=5]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 841, 533, 254.302, -74.7609, -254.302, 74.7609, 795, 277, 160.371, 7.35353, -160.371, -7.35353, 522, 500, 69.8758, 24.5118, -69.8758, -24.5118, 311.033, 226.908, 71.0214, -52.7003, -71.0214, 52.7003, 234.259, 315.511, -37.8017, 75.9865, 37.8017, -75.9865, 122, 272, 0, 0, 0, 0, 75, 91 )
+}
+
+[node name="Main" type="Node2D"]
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 536.5, 310.5 )
+scale = Vector2( 17.7656, 10.7031 )
+texture = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="UGV" type="RigidBody2D" parent="."]
+position = Vector2( 940, 527 )
+rotation = -0.875994
+mass = 1600.0
+physics_material_override = SubResource( 4 )
+gravity_scale = 0.0
+can_sleep = false
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UGV"]
+position = Vector2( -0.5, 0.5 )
+shape = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="UGVSprite" type="Sprite" parent="UGV"]
+rotation = 0.00260559
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Path2D" type="Path2D" parent="."]
+scale = Vector2( 0.979883, 0.915856 )
+curve = SubResource( 5 )
