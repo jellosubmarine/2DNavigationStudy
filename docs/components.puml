@@ -1,13 +1,13 @@
 @startuml components
-class Inputs {
+class Inputs #LightGreen {
   float target_forward_vel
   float target_angular_vel
 }
 
-class State {
+class State #LightGreen{
+  // solved by rigidbody2d variables
   Vec2 linear_vel
   float angular_vel
-  void update()
 }
 
 class EnvironmentalForces {
@@ -35,7 +35,7 @@ class PhysicsController {
 
 class MotorBraking {
   float braking_coefficient
-  void velocity_to_rps(State state, bool is_left_track)
+  Vec2 velocity_to_rpm(State state, bool is_left_track)
 }
 
 class Friction {
@@ -52,6 +52,6 @@ Friction --> EnvironmentalForces
 EnvironmentalForces --> Outputs
 MotorBraking *-- State
 Friction *-- State
-Outputs --> PhysicsController
+Outputs --* PhysicsController
 
 @enduml
